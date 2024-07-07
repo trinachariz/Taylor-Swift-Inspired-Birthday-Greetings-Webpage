@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday To Me</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('background.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Montserrat', Arial, sans-serif; /* Use Montserrat */
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .celebrant-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid brown;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .rotate {
+            animation: spin 5s linear infinite;
+        }
+        .cake {
+            width: 200px;
+            height: auto;
+            animation: floatCake 5s ease-in-out infinite alternate;
+        }
+        .message {
+            font-size: 1.5em;
+            color: #333;
+            margin-top: 20px;
+            animation: fadeIn 3s ease-in-out;
+        }
+        .happy-birthday-message, .feeling-22-message {
+            font-size: 2em;
+            color: #ff4500;
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 3s ease-in-out;
+        }
+        .birthday-message {
+            font-size: 2em;
+            color: #000; /* Change color to black */
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 3s ease-in-out;
+        }
+        .custom-button, .message-button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: brown;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+        .custom-button:hover, .message-button:hover {
+            background-color: #8b5a2b; /* Darker brown on hover */
+        }
+        /* Hidden video initially */
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s ease;
+        }
+        .video-bg.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes floatCake {
+            from { transform: translateY(0); }
+            to { transform: translateY(-20px); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="celebrant.jpg" alt="Celebrant Photo" class="celebrant-photo" id="celebrantPhoto">
+        <img src="cakes.png" alt="Birthday Cake" class="cake">
+        <div class="message"> VI.XXIX.MMXXIV</div>
+        <div class="happy-birthday-message" id="happyBirthdayMessage">Happy Birthday!</div>
+        <div class="feeling-22-message" id="feeling22Message">I'm Feeling 22!</div>
+        <div class="birthday-message" id="birthdayMessage">Thank you guys for remembering me on my special day. <br>
+            Despite all my untold silent battles, still life is beautiful<br> because I was full of love, loved and appreciated by many.<br> 
+            Maraming Salamat. Mahal ko kayong lahat! <br> 
+            <br> Always remember to be kind to yourself, be kind to others <br> and the world will be kinder to you mwaaaa! <br>
+            <br>
+            --- Your Poet.tri / Tripod Podcast Host / Vlogger Friend ---
+        </div>
+        <div class="button-container">
+            <button class="custom-button" onclick="toggleMessage()">Trina Chariz</button>
+            <button class="message-button" onclick="toggleBirthdayMessage()">My Birthday Message</button>
+        </div>
+        <!-- Video background element -->
+        <video class="video-bg" id="backgroundVideo" src="background_video.mp4" muted loop></video>
+    </div>
+
+    <script>
+        function toggleMessage() {
+            var feelingMessage = document.getElementById('feeling22Message');
+            var thankYouMessage = document.querySelector('.message');
+            var videoBackground = document.querySelector('.video-bg');
+            var body = document.querySelector('body');
+            var video = document.getElementById('backgroundVideo');
+            var photo = document.getElementById('celebrantPhoto');
+
+            if (feelingMessage.style.display === 'none') {
+                feelingMessage.style.display = 'block';
+                thankYouMessage.style.display = 'none';
+                videoBackground.classList.add('active');
+                body.style.background = 'none';  // Remove the static background
+                video.play();  // Play the video
+                photo.classList.add('rotate');  // Add rotate class to the photo
+            } else {
+                feelingMessage.style.display = 'none';
+                thankYouMessage.style.display = 'block';
+                videoBackground.classList.remove('active');
+                body.style.background = 'url("background.jpeg") no-repeat center center fixed';
+                body.style.backgroundSize = 'cover';
+                video.pause();  // Pause the video
+                video.currentTime = 0;  // Reset video to the beginning
+                photo.classList.remove('rotate');  // Remove rotate class from the photo
+            }
+        }
+
+        function toggleBirthdayMessage() {
+            var birthdayMessage = document.getElementById('birthdayMessage');
+            var thankYouMessage = document.querySelector('.message');
+
+            if (birthdayMessage.style.display === 'none') {
+                birthdayMessage.style.display = 'block';
+                thankYouMessage.style.display = 'none';
+            } else {
+                birthdayMessage.style.display = 'none';
+                thankYouMessage.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
